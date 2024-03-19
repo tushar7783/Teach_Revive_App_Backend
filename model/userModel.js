@@ -34,6 +34,7 @@ const UserSchema = Schema({
     enum: ["EMPLOYEE", "SCHOOL", "BENEFICIARY", "ADMIN"],
     default: "USER",
   },
+  // token will add soon
 });
 UserSchema.pre("save", function (next) {
   const user = this;
