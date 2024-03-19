@@ -1,0 +1,16 @@
+{
+  "name": "teach-revive-backend",
+  "version": "1.0.0",
+  "description": "help the employee Financial in emergency",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Tushar and Vedant",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "mongoose": "^8.2.2"
+  }
+}
