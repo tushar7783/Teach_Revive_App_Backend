@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
-const UserModel = require("../model/userModel");
+const routes = express.Router();
 
-module.exports = router;
+module.exports = routes;

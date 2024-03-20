@@ -1,14 +1,15 @@
 require("dotenv");
 const { Schema, model } = require("mongoose");
 const { createHmac } = require("crypto");
-
+const { tokengenerator } = require("../services/authentication");
 const UserSchema = Schema({
   Name: {
     type: String,
     required: true,
   },
+
   PhoneNumber: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
@@ -31,7 +32,7 @@ const UserSchema = Schema({
   },
   role: {
     type: String,
-    enum: ["EMPLOYEE", "SCHOOL", "BENEFICIARY", "ADMIN"],
+    enum: ["EMPLOYEE", "BENEFICIARY", "ADMIN"],
     default: "USER",
   },
   // token will add soon
@@ -48,6 +49,22 @@ UserSchema.pre("save", function (next) {
   this.password = hashpassword;
   next();
 });
+
+UserSchema.static(
+  "matchPasswordAndGenrateToken",
+  async function (email, password) {
+    const user = await this.findOne({ email });
+    if (!user) return `Plaese register yourself`;
+    const salt = user.salt;
+    const userPassword = user.password;
+    const userProvidePasswordHash = createHmac("sha256", salt)
+      .update(password)
+      .digest("hex");
+    if (userPassword != userProvidePasswordHash) return `Inavalid password`;
+    const token = await tokengenerator(user);
+    return token;
+  }
+);
 
 const UserModel = model("user", UserSchema);
 
