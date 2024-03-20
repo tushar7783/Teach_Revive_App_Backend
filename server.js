@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+schoolRoutes = require("./routes/schoolRoutes");
 // connection
 mongoose
   .connect("mongodb://127.0.0.1:27017/TeachReviveApp")
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("api running");
 });
-
+app.use("/school", schoolRoutes);
 app.use("/api", userRoutes);
 
 app.listen(PORT, () => {

@@ -38,16 +38,27 @@ const SchoolSchema = new Schema({
     type: String,
     required: true,
   },
-  IsVerified:{
+  IsVerified: {
     type: Boolean,
     required: true,
-
-  }
+  },
 
   // token will be added soon
 });
 
- 
+SchoolSchema.pre("save", function (next) {
+  const user = this;
+  if (!user.isModified("password")) return;
+  const salt = process.env.SALT;
+  const hashpassword = createHmac("sha256", salt)
+    .update(user.password)
+    .digest("hex");
+
+  this.salt = salt;
+  this.password = hashpassword;
+  next();
+});
+
 const SchoolModel = new model("SchoolInfo", SchoolSchema);
 
 module.exports = SchoolModel;
