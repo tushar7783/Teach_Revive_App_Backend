@@ -59,6 +59,22 @@ SchoolSchema.pre("save", function (next) {
   next();
 });
 
+SchoolSchema.static(
+  "matchPasswordAndGenrateToken",
+  async function (email, password) {
+    const user = await this.findOne({ email });
+    if (!user) return `Plaese register yourself`;
+    const salt = user.salt;
+    const userPassword = user.password;
+    const userProvidePasswordHash = createHmac("sha256", salt)
+      .update(password)
+      .digest("hex");
+    if (userPassword != userProvidePasswordHash) return `Inavalid password`;
+    const token = await tokengenerator(user);
+    return token;
+  }
+);
+
 const SchoolModel = new model("SchoolInfo", SchoolSchema);
 
 module.exports = SchoolModel;
