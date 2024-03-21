@@ -11,4 +11,4 @@ class BeneficiaryAuth {
     }
   }
 }
-module.exports = new EmployeeAuth().RoleCheckEmployee;
+module.exports = new EmployeeAuth().RoleCheckBeneficiary;
