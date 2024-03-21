@@ -42,6 +42,11 @@ const SchoolSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  role: {
+    type: String,
+    required: false,
+    default: "SCHOOL",
+  },
 
   // token will be added soon
 });
