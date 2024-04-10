@@ -1,4 +1,4 @@
-require("dotenv");
+require("dotenv/config");
 const { Schema, model } = require("mongoose");
 const { createHmac } = require("crypto");
 const { tokengenerator } = require("../services/authentication");

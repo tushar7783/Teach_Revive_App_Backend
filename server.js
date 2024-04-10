@@ -14,8 +14,8 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("api running");

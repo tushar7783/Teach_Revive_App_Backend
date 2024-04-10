@@ -1,6 +1,7 @@
-require("dotenv");
+require("dotenv/config");
 const { Schema, model } = require("mongoose");
-
+const { createHmac } = require("crypto");
+const { tokenGeneratorSchool } = require("../services/authentication");
 const SchoolSchema = new Schema({
   SchoolName: {
     type: String,
@@ -21,6 +22,9 @@ const SchoolSchema = new Schema({
     type: String,
     required: true,
   },
+  salt: {
+    type: String,
+  },
 
   SchoolAffliationCode: {
     type: String,
@@ -40,7 +44,8 @@ const SchoolSchema = new Schema({
   },
   IsVerified: {
     type: Boolean,
-    required: true,
+    // required: true,
+    default: false,
   },
   role: {
     type: String,
@@ -53,29 +58,29 @@ const SchoolSchema = new Schema({
 
 SchoolSchema.pre("save", function (next) {
   const user = this;
-  if (!user.isModified("password")) return;
+  if (!user.isModified("RegistrationPassword")) return;
   const salt = process.env.SALT;
   const hashpassword = createHmac("sha256", salt)
-    .update(user.password)
+    .update(user.RegistrationPassword)
     .digest("hex");
 
   this.salt = salt;
-  this.password = hashpassword;
+  this.RegistrationPassword = hashpassword;
   next();
 });
 
 SchoolSchema.static(
   "matchPasswordAndGenrateToken",
-  async function (email, password) {
-    const user = await this.findOne({ email });
+  async function (RegistrationEmail, RegistrationPassword) {
+    const user = await this.findOne({ RegistrationEmail });
     if (!user) return `Plaese register yourself`;
     const salt = user.salt;
-    const userPassword = user.password;
+    const userPassword = user.RegistrationPassword;
     const userProvidePasswordHash = createHmac("sha256", salt)
-      .update(password)
+      .update(RegistrationPassword)
       .digest("hex");
     if (userPassword != userProvidePasswordHash) return `Inavalid password`;
-    const token = await tokengenerator(user);
+    const token = await tokenGeneratorSchool(user);
     return token;
   }
 );
