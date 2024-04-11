@@ -52,6 +52,9 @@ const SchoolSchema = new Schema({
     required: false,
     default: "SCHOOL",
   },
+  // SchoolProfileURL:{
+
+  // }
 
   // token will be added soon
 });

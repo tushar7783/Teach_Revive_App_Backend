@@ -1,7 +1,7 @@
 require("dotenv/config");
 const { Schema, model } = require("mongoose");
 const { createHmac } = require("crypto");
-const { tokengenerator } = require("../services/authentication");
+const { tokenGenerator } = require("../services/authentication");
 const UserSchema = Schema({
   Name: {
     type: String,
@@ -32,8 +32,12 @@ const UserSchema = Schema({
   },
   role: {
     type: String,
-    enum: ["EMPLOYEE", "BENEFICIARY", "ADMIN"],
-    default: "USER",
+    enum: ["EMPLOYEE", "BENEFICIARY"],
+    default: "EMPLOYEE",
+  },
+  schoolId: {
+    type: Schema.Types.ObjectId,
+    ref: "SchoolInfo",
   },
   // token will add soon
 });
@@ -61,7 +65,7 @@ UserSchema.static(
       .update(password)
       .digest("hex");
     if (userPassword != userProvidePasswordHash) return `Inavalid password`;
-    const token = await tokengenerator(user);
+    const token = await tokenGenerator(user);
     return token;
   }
 );

@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   res.send("api running");
 });
 app.use("/school", schoolRoutes);
-app.use("/api", userRoutes);
+app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`App Listening On PORT: ${PORT}`);
