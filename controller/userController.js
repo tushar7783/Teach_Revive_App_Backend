@@ -1,16 +1,17 @@
 const UserModel = require("../model/userModel");
+const UserService = require("../services/UserService");
 
 exports.usersignup = async (req, res) => {
   try {
     const { Name, PhoneNumber, email, password, schoolId } = req.body;
-    const user = await UserModel.create({
+    const user = await UserService.register(
       Name,
       PhoneNumber,
       email,
       password,
-      schoolId,
-    });
-    if (!user) return res.status(400).json({ Message: "Something went wrong" });
+      schoolId
+    );
+    if (!user) return res.status(404).json({ Message: "Something went wrong" });
 
     res.status(200).json({ message: "user added", sucess: true });
   } catch (error) {

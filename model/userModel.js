@@ -39,6 +39,11 @@ const UserSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "SchoolInfo",
   },
+  Isverifed: {
+    type: Boolean,
+    default: false,
+  },
+
   // token will add soon
 });
 UserSchema.pre("save", function (next) {

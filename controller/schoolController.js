@@ -1,4 +1,5 @@
 const SchoolModel = require("../model/schoolModel");
+const SchoolService = require("../services/schoolService");
 
 exports.registerSchool = async (req, res) => {
   try {
@@ -12,7 +13,8 @@ exports.registerSchool = async (req, res) => {
       Distrct,
       State,
     } = req.body;
-    const School = await SchoolModel.create({
+
+    const School = await SchoolService.register(
       SchoolName,
       RegistrationPhoneNumber,
       RegistrationEmail,
@@ -20,12 +22,9 @@ exports.registerSchool = async (req, res) => {
       SchoolAffliationCode,
       Pincode,
       Distrct,
-      State,
-    });
-    if (!School)
-      return res
-        .status(400)
-        .send(`Please provide the above details for the School registration `);
+      State
+    );
+    console.log(School);
 
     res.status(200).json({ message: `School register`, suceess: true });
   } catch (error) {
