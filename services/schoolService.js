@@ -1,9 +1,12 @@
 const SchoolModel = require("../model/schoolModel");
 
 class SchoolService {
-  static async register() {
+  static async register(
+   
+  ) {
     try {
       // console.log("ghsghgdshgshgh");
+      console.log("<<<<<<<<<<<<<<",arguments)
 
       const school = await SchoolModel.create({
         SchoolName: arguments[0],

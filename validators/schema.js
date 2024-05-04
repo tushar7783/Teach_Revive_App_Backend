@@ -58,7 +58,7 @@ const schemas = {
         }
       })
       .required(),
-    District: Joi.string().required(),
+    Distrct: Joi.string().required(),
     State: Joi.string().required(),
   }),
 };
