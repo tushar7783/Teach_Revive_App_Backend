@@ -5,6 +5,12 @@ class SchoolService {
     try {
       // console.log("ghsghgdshgshgh");
       // console.log("<<<<<<<<<<<<<<", arguments);
+      // const alreadyPresent = await SchoolModel.find({
+      //   RegistrationEmail: arguments[2],
+      // });
+      // if (alreadyPresent) {
+      //   return "School is alrready register";
+      // }
 
       const school = await SchoolModel.create({
         SchoolName: arguments[0],
