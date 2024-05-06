@@ -23,7 +23,7 @@ exports.registerSchool = async (req, res) => {
     const { error } = joischema.registerSchool.validate(req.body, joiOptions);
 
     if (error) {
-      res.status(200).json({ message: error, suceess: true });
+      res.status(400).json({ message: error, suceess: true });
     } else {
       const School = await SchoolService.register(
         SchoolName,
@@ -50,6 +50,7 @@ exports.registerSchool = async (req, res) => {
 exports.SchoolLogin = async (req, res) => {
   try {
     const { RegistrationEmail, RegistrationPassword } = req.body;
+<<<<<<< HEAD
     const Token = await SchoolModel.matchPasswordAndGenrateToken(
       RegistrationEmail,
       RegistrationPassword
@@ -58,10 +59,23 @@ exports.SchoolLogin = async (req, res) => {
       return res.status(400).json({ Message: `token cannot be created` });
     if (Token == "Plaese register yourself")
       return res.status(400).json({ Message: `Plaese register yourself` });
+=======
+    const { error } = joischema.LoginSchool.validate(req.body, joiOptions);
+    if (error) {
+      res.status(400).json({ message: error, suceess: true });
+    } else {
+      const Token = await SchoolModel.matchPasswordAndGenrateToken(
+        RegistrationEmail,
+        RegistrationPassword
+      );
+      if (!Token)
+        return res.status(400).json({ Message: `token cannot be created` });
+>>>>>>> refs/remotes/origin/main
 
-    res
-      .status(200)
-      .json({ message: `School login sucess`, sucess: true, Token: Token });
+      res
+        .status(200)
+        .json({ message: `School Login Sucess`, sucess: true, Token: Token });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(`Internal server error`);

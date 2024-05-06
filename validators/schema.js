@@ -61,5 +61,25 @@ const schemas = {
     Distrct: Joi.string().required(),
     State: Joi.string().required(),
   }),
+LoginSchool: Joi.object().keys({
+    RegistrationEmail: Joi.string()
+      .custom((value, helpers) => {
+        if (emailRegx.test(value)) {
+          return true;
+        } else {
+          return helpers.message("Not A Valid Email id");
+        }
+      })
+      .required(),
+    RegistrationPassword: Joi.string()
+      .custom((value, helpers) => {
+        if (passwordPattern.test(value)) {
+          return true;
+        } else {
+          return helpers.message("Not A Valid password");
+        }
+      })
+      .required()
+  }),
 };
-module.exports=schemas
+module.exports = schemas;
