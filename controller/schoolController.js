@@ -36,7 +36,9 @@ exports.registerSchool = async (req, res) => {
         State
       );
       if (School) {
-        res.status(200).json({ message: `School register successfully`, suceess: true });
+        res
+          .status(200)
+          .json({ message: `School register successfully`, suceess: true });
       }
     }
   } catch (error) {
@@ -54,6 +56,8 @@ exports.SchoolLogin = async (req, res) => {
     );
     if (!Token)
       return res.status(400).json({ Message: `token cannot be created` });
+    if (Token == "Plaese register yourself")
+      return res.status(400).json({ Message: `Plaese register yourself` });
 
     res
       .status(200)

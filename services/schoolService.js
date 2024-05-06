@@ -1,12 +1,10 @@
 const SchoolModel = require("../model/schoolModel");
 
 class SchoolService {
-  static async register(
-   
-  ) {
+  static async register() {
     try {
       // console.log("ghsghgdshgshgh");
-      console.log("<<<<<<<<<<<<<<",arguments)
+      // console.log("<<<<<<<<<<<<<<", arguments);
 
       const school = await SchoolModel.create({
         SchoolName: arguments[0],
@@ -19,7 +17,7 @@ class SchoolService {
         State: arguments[7],
       });
 
-      console.log(arguments);
+      // console.log(arguments);
       if (!school)
         return res.status(404).json({ Messgae: `Something Went Wrong ` });
 
