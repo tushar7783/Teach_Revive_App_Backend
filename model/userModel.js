@@ -1,5 +1,5 @@
 require("dotenv/config");
-const { Schema, model } = require("mongoose");
+const { Schema, model,Aggregate } = require("mongoose");
 const { createHmac } = require("crypto");
 const { tokenGenerator } = require("../services/authentication");
 const UserSchema = Schema({
@@ -46,6 +46,8 @@ const UserSchema = Schema({
 
   // token will add soon
 });
+
+
 UserSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("password")) return;

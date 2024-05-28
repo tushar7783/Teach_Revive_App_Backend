@@ -1,8 +1,15 @@
+const SchoolModel = require("../model/schoolModel");
 const UserModel = require("../model/userModel");
 
 class UserService {
-  static async register() {
+  static async register(req,res) {
     try {
+
+      const verify =await SchoolModel.findById(arguments[4])
+      if(!verify){
+        return "No Such School register for this Program";
+      }
+
       const user = await UserModel.create({
         Name: arguments[0],
         PhoneNumber: arguments[1],

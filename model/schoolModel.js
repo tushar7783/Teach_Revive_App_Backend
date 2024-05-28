@@ -1,5 +1,5 @@
 require("dotenv/config");
-const { Schema, model } = require("mongoose");
+const { Schema, model,Aggregate } = require("mongoose");
 const { createHmac } = require("crypto");
 const { tokenGeneratorSchool } = require("../services/authentication");
 const SchoolSchema = new Schema({
@@ -59,6 +59,9 @@ const SchoolSchema = new Schema({
   // token will be added soon
 });
 
+
+
+
 SchoolSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("RegistrationPassword")) return;
@@ -76,7 +79,7 @@ SchoolSchema.static(
   "matchPasswordAndGenrateToken",
   async function (RegistrationEmail, RegistrationPassword) {
     const user = await this.findOne({ RegistrationEmail });
-    if (!user) return `Plaese register yourself`;
+    if (!user) return `Please register yourself`;
     const salt = user.salt;
     const userPassword = user.RegistrationPassword;
     const userProvidePasswordHash = createHmac("sha256", salt)

@@ -12,6 +12,7 @@ exports.usersignup = async (req, res) => {
       schoolId
     );
     if (!user) return res.status(404).json({ Message: "Something went wrong" });
+    if(user=="No Such School register for this Program") return res.status(200).json({message:"No Such School register for this Program"})
 
     res.status(200).json({ message: "user added", sucess: true });
   } catch (error) {
