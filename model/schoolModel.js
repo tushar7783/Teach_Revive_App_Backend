@@ -1,5 +1,5 @@
 require("dotenv/config");
-const { Schema, model,Aggregate } = require("mongoose");
+const { Schema, model, } = require("mongoose");
 const { createHmac } = require("crypto");
 const { tokenGeneratorSchool } = require("../services/authentication");
 const SchoolSchema = new Schema({

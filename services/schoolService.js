@@ -1,6 +1,17 @@
 const SchoolModel = require("../model/schoolModel");
 
 class SchoolService {
+  static async checkForSchool( schoolId){
+    try{
+      const school =await SchoolModel.findById(schoolId);
+      if(school) return true;
+      else return false ;
+
+
+    }catch{
+      console.log(error);
+    }
+  }
   static async register() {
     try {
       // console.log("ghsghgdshgshgh");

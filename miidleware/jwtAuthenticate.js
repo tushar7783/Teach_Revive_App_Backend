@@ -22,4 +22,4 @@ class TOKEN {
   }
 }
 
-module.exports = new Token().authentiate;
+module.exports = new TOKEN().authentiate;

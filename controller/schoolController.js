@@ -75,3 +75,32 @@ exports.SchoolLogin = async (req, res) => {
   }
 };
 
+exports.SchoolLogout=async(req,res)=>{
+  try{
+    const authorizationHeader = req.headers.authorization;
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'Invalid or missing token' });
+    }
+    const token = authorizationHeader.split(' ')[1];
+    
+
+
+   
+    
+
+    res.status(200).json({ message: 'Logout successful' });
+    
+
+    // console.log(token);
+    // console.log(req.headers.authorization);
+
+    
+
+  } catch(error){
+    console.error('Logout error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+ 
